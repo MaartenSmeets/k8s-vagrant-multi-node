@@ -85,7 +85,7 @@ Vagrant.configure('2') do |config|
         subconfig.vm.synced_folder "data/#{BOX_OS}-#{$hostname}/", '/data', type: 'rsync',
             create: true, owner: 'root', group: 'root',
             rsync__args: ["--rsync-path='sudo rsync'", '--archive', '--delete', '-z']
-
+        subconfig.vm.synced_folder "data/shared/", '/shared', type: "sshfs"
         # Add SSH pub key from user if specified
         if $userSSHPubKey != ""
             subconfig.vm.provision :file, source: $userSSHPubKey, destination: "~/.ssh/user.pub"
